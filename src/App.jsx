@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import axios from "axios";
+import "./index.css";
 import { FiSend } from "react-icons/fi";
 import { FaUserCircle, FaRobot } from "react-icons/fa";
 
@@ -28,7 +29,7 @@ function App() {
       });
 
       const answerText =
-        response.data.candidates[0].content.parts[0].text;
+        response["data"]["candidates"][0]["content"]["parts"][0]["text"];
       setMessages([...newMessages, { role: "bot", content: answerText }]);
     } catch (error) {
       console.error(error);
@@ -42,14 +43,14 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-800 to-pink-600 flex flex-col items-center justify-center p-4 relative overflow-hidden">
-      <div className="absolute inset-0 opacity-30 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-      <div className="w-full max-w-4xl flex flex-col h-[90vh] rounded-3xl shadow-2xl bg-white/20 p-6 overflow-hidden backdrop-blur-lg border border-white/30 transition-all duration-300">
-        <h1 className="text-5xl font-bold text-white mb-6 flex items-center justify-center gap-4 bg-gradient-to-r from-pink-500 to-purple-700 p-4 rounded-full shadow-lg transform hover:scale-105 transition duration-300">
-          <FaRobot className="text-white text-4xl" />
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 to-black flex flex-col items-center justify-center p-4 relative overflow-hidden">
+      <div className="absolute inset-0 opacity-20 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+      <div className="w-full max-w-4xl flex flex-col h-[90vh] rounded-3xl shadow-2xl bg-white/10 p-6 overflow-hidden backdrop-blur-lg border border-white/20 transition-all duration-300">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-6 flex items-center gap-4 bg-gradient-to-r from-blue-800 to-teal-900 p-3 rounded-full shadow-lg transform hover:scale-105 transition duration-300 justify-center">
+          <FaRobot className="text-white text-3xl sm:text-4xl md:text-5xl" />
           Fatima AI
         </h1>
-        <div className="flex-grow w-full overflow-y-auto p-4 rounded-3xl bg-white/20 shadow-inner backdrop-blur-md border border-gray-300 transition-all duration-300">
+        <div className="flex-grow w-full overflow-y-auto p-4 rounded-3xl bg-white/30 shadow-inner backdrop-blur-md border border-gray-300 transition-all duration-300">
           {messages.map((msg, index) => (
             <div
               key={index}
@@ -58,15 +59,15 @@ function App() {
               }`}
             >
               {msg.role === "user" ? (
-                <FaUserCircle className="text-indigo-400 text-4xl" />
+                <FaUserCircle className="text-indigo-400 text-3xl sm:text-4xl md:text-5xl" />
               ) : (
-                <FaRobot className="text-teal-300 text-4xl" />
+                <FaRobot className="text-teal-300 text-3xl sm:text-4xl md:text-5xl" />
               )}
               <div
-                className={`p-4 rounded-2xl w-fit max-w-full shadow-lg transition-all duration-300 transform ${
+                className={`p-3 md:p-4 rounded-2xl w-fit max-w-full md:max-w-xs shadow-lg transition-all duration-300 transform ${
                   msg.role === "user"
-                    ? "bg-gradient-to-r from-indigo-700 to-purple-600 text-white"
-                    : "bg-gradient-to-r from-teal-200 to-blue-400 text-gray-900"
+                    ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white"
+                    : "bg-gradient-to-r from-green-100 to-blue-200 text-gray-900"
                 }`}
               >
                 {msg.content}
@@ -88,7 +89,7 @@ function App() {
           ></textarea>
           <button
             type="submit"
-            className={`bg-gradient-to-r from-orange-400 to-yellow-500 text-white p-4 rounded-full hover:bg-orange-600 transition-all duration-300 transform hover:scale-110 shadow-lg flex items-center justify-center ${
+            className={`bg-gradient-to-r from-yellow-500 to-orange-500 text-white p-4 rounded-full hover:bg-orange-600 transition-all duration-300 transform hover:scale-110 shadow-lg flex items-center justify-center ${
               generatingAnswer ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={generatingAnswer}
